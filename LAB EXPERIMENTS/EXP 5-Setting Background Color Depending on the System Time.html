@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+
+var d = new Date();
+var h = d.getHours();
+
+if (h < 12)
+{
+    document.bgColor = "lightyellow";
+    document.write("<h2>Good Morning</h2>");
+}
+else if (h < 18)
+{
+    document.bgColor = "lightblue";
+    document.write("<h2>Good Afternoon</h2>");
+}
+else
+{
+    document.bgColor = "lightgray";
+    document.write("<h2>Good Evening</h2>");
+}
+
+</script>
+
+</body>
+</html>
