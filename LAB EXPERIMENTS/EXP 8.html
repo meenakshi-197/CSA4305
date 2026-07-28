@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Library Management System</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    text-align:center;
+}
+table{
+    width:70%;
+    margin:auto;
+    border-collapse:collapse;
+    background:white;
+}
+th,td{
+    border:1px solid black;
+    padding:10px;
+}
+th{
+    background:#4CAF50;
+    color:white;
+}
+button{
+    padding:5px 10px;
+}
+input{
+    padding:8px;
+    width:250px;
+    margin:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Library Management System</h2>
+
+<input type="text" id="search" placeholder="Search Book..." onkeyup="searchBook()">
+
+<table id="bookTable">
+
+<tr>
+<th>ID</th>
+<th>Book Name</th>
+<th>Author</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>101</td>
+<td>Java Programming</td>
+<td>James Gosling</td>
+<td class="status">Available</td>
+<td><button onclick="toggleBook(this)">Issue</button></td>
+</tr>
+
+<tr>
+<td>102</td>
+<td>Python Basics</td>
+<td>Guido van Rossum</td>
+<td class="status">Available</td>
+<td><button onclick="toggleBook(this)">Issue</button></td>
+</tr>
+
+<tr>
+<td>103</td>
+<td>DBMS</td>
+<td>Korth</td>
+<td class="status">Available</td>
+<td><button onclick="toggleBook(this)">Issue</button></td>
+</tr>
+
+<tr>
+<td>104</td>
+<td>C Programming</td>
+<td>Dennis Ritchie</td>
+<td class="status">Available</td>
+<td><button onclick="toggleBook(this)">Issue</button></td>
+</tr>
+
+<tr>
+<td>105</td>
+<td>Web Technology</td>
+<td>Deitel</td>
+<td class="status">Available</td>
+<td><button onclick="toggleBook(this)">Issue</button></td>
+</tr>
+
+</table>
+
+<script>
+
+function searchBook(){
+
+let input=document.getElementById("search").value.toUpperCase();
+
+let table=document.getElementById("bookTable");
+
+let tr=table.getElementsByTagName("tr");
+
+for(let i=1;i<tr.length;i++){
+
+let td=tr[i].getElementsByTagName("td")[1];
+
+let txt=td.innerHTML;
+
+if(txt.toUpperCase().indexOf(input)>-1)
+tr[i].style.display="";
+else
+tr[i].style.display="none";
+
+}
+
+}
+
+function toggleBook(btn){
+
+let row=btn.parentNode.parentNode;
+
+let status=row.getElementsByClassName("status")[0];
+
+if(status.innerHTML=="Available"){
+
+status.innerHTML="Issued";
+btn.innerHTML="Return";
+
+}
+else{
+
+status.innerHTML="Available";
+btn.innerHTML="Issue";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
