@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Online Hotel Booking</title>
+<style>
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    text-align:center;
+    margin:20px;
+}
+table{
+    width:90%;
+    margin:auto;
+    border-collapse:collapse;
+    background:white;
+}
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+th{
+    background:#007BFF;
+    color:white;
+}
+input,button{
+    padding:8px;
+    margin:5px;
+}
+button{
+    cursor:pointer;
+}
+#history{
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🏨 Online Hotel Booking System</h2>
+
+<input type="text" id="search" placeholder="Search Hotel..." onkeyup="searchHotel()">
+
+<table id="hotelTable">
+<tr>
+<th>Hotel</th>
+<th>Room Type</th>
+<th>Price ($)</th>
+<th>Available</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Grand Hotel</td>
+<td>Single</td>
+<td class="price">100</td>
+<td class="qty">5</td>
+<td><button onclick="book(this)">Book</button></td>
+</tr>
+
+<tr>
+<td>Sea View</td>
+<td>Double</td>
+<td class="price">180</td>
+<td class="qty">3</td>
+<td><button onclick="book(this)">Book</button></td>
+</tr>
+
+<tr>
+<td>Luxury Inn</td>
+<td>Suite</td>
+<td class="price">250</td>
+<td class="qty">2</td>
+<td><button onclick="book(this)">Book</button></td>
+</tr>
+
+<tr>
+<td>City Stay</td>
+<td>Deluxe</td>
+<td class="price">150</td>
+<td class="qty">4</td>
+<td><button onclick="book(this)">Book</button></td>
+</tr>
+
+</table>
+
+<h3>Booking History</h3>
+
+<table id="history">
+<tr>
+<th>Hotel</th>
+<th>Room</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+</table>
+
+<hr>
+
+<h2>Admin Panel</h2>
+
+<select id="hotel">
+<option>Grand Hotel</option>
+<option>Sea View</option>
+<option>Luxury Inn</option>
+<option>City Stay</option>
+</select>
+
+<input type="number" id="newPrice" placeholder="New Price">
+
+<input type="number" id="newQty" placeholder="New Quantity">
+
+<button onclick="updateHotel()">Update</button>
+
+<script>
+
+function searchHotel(){
+
+let input=document.getElementById("search").value.toUpperCase();
+
+let table=document.getElementById("hotelTable");
+
+let tr=table.getElementsByTagName("tr");
+
+for(let i=1;i<tr.length;i++){
+
+let td=tr[i].getElementsByTagName("td")[0];
+
+if(td.innerHTML.toUpperCase().indexOf(input)>-1)
+tr[i].style.display="";
+else
+tr[i].style.display="none";
+
+}
+
+}
+
+function book(btn){
+
+let row=btn.parentNode.parentNode;
+
+let hotel=row.cells[0].innerHTML;
+let room=row.cells[1].innerHTML;
+let price=row.cells[2].innerHTML;
+let qty=row.cells[3];
+
+if(parseInt(qty.innerHTML)<=0){
+
+alert("Room Not Available");
+return;
+
+}
+
+qty.innerHTML--;
+
+let history=document.getElementById("history");
+
+let r=history.insertRow();
+
+r.insertCell(0).innerHTML=hotel;
+r.insertCell(1).innerHTML=room;
+r.insertCell(2).innerHTML="$"+price;
+r.insertCell(3).innerHTML="<button onclick='cancelBooking(this)'>Cancel</button>";
+
+alert("Room Booked Successfully");
+
+}
+
+function cancelBooking(btn){
+
+let row=btn.parentNode.parentNode;
+
+let hotel=row.cells[0].innerHTML;
+
+let table=document.getElementById("hotelTable");
+
+for(let i=1;i<table.rows.length;i++){
+
+if(table.rows[i].cells[0].innerHTML==hotel){
+
+table.rows[i].cells[3].innerHTML=
+parseInt(table.rows[i].cells[3].innerHTML)+1;
+
+}
+
+}
+
+row.remove();
+
+alert("Booking Cancelled");
+
+}
+
+function updateHotel(){
+
+let hotel=document.getElementById("hotel").value;
+let price=document.getElementById("newPrice").value;
+let qty=document.getElementById("newQty").value;
+
+let table=document.getElementById("hotelTable");
+
+for(let i=1;i<table.rows.length;i++){
+
+if(table.rows[i].cells[0].innerHTML==hotel){
+
+if(price!="")
+table.rows[i].cells[2].innerHTML=price;
+
+if(qty!="")
+table.rows[i].cells[3].innerHTML=qty;
+
+}
+
+}
+
+alert("Hotel Details Updated");
+
+}
+
+</script>
+
+</body>
+</html>
