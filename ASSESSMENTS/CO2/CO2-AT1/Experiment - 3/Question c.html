@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Layout Debugging</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f4f4;
+    line-height:1.6;
+}
+
+/* Header */
+
+header{
+    background:#2c3e50;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* Navigation */
+
+nav{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:15px;
+    background:#34495e;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#00d4ff;
+}
+
+/* Main Layout */
+
+.container{
+    display:flex;
+    gap:20px;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+/* Sidebar */
+
+aside{
+    flex:1;
+    background:white;
+    padding:20px;
+    border-radius:8px;
+    min-width:220px;
+}
+
+aside h2{
+    margin-bottom:15px;
+}
+
+aside ul{
+    padding-left:20px;
+}
+
+/* Main Content */
+
+main{
+    flex:3;
+    background:white;
+    padding:20px;
+    border-radius:8px;
+}
+
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    flex:1 1 220px;
+    background:#3498db;
+    color:white;
+    padding:30px;
+    text-align:center;
+    border-radius:8px;
+    font-size:18px;
+    transition:0.3s;
+}
+
+.card:hover{
+    background:#217dbb;
+    transform:scale(1.03);
+}
+
+/* Footer */
+
+footer{
+    background:#2c3e50;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:20px;
+}
+
+/* Tablet View */
+
+@media(max-width:768px){
+
+.container{
+    flex-direction:column;
+}
+
+.products{
+    justify-content:center;
+}
+
+}
+
+/* Mobile View */
+
+@media(max-width:480px){
+
+nav{
+    flex-direction:column;
+    align-items:center;
+}
+
+.products{
+    flex-direction:column;
+}
+
+.card{
+    width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Retail Store</h1>
+</header>
+
+<nav>
+    <a href="#">Home</a>
+    <a href="#">Products</a>
+    <a href="#">Offers</a>
+    <a href="#">Contact</a>
+</nav>
+
+<div class="container">
+
+    <aside>
+        <h2>Categories</h2>
+        <ul>
+            <li>Electronics</li>
+            <li>Fashion</li>
+            <li>Books</li>
+            <li>Sports</li>
+        </ul>
+    </aside>
+
+    <main>
+
+        <h2>Featured Products</h2>
+
+        <div class="products">
+
+            <div class="card">Laptop</div>
+
+            <div class="card">Smartphone</div>
+
+            <div class="card">Headphones</div>
+
+            <div class="card">Watch</div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<footer>
+    ©2026 Retail Store
+</footer>
+
+</body>
+</html> 
