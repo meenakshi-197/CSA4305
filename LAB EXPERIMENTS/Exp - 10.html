@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Bus Ticket Booking System</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f2f2f2;
+        }
+        .container{
+            width:400px;
+            margin:40px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+        h2{
+            text-align:center;
+            color:darkblue;
+        }
+        input,select{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            border:1px solid gray;
+            border-radius:5px;
+        }
+        button{
+            width:100%;
+            padding:10px;
+            background:green;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:darkgreen;
+        }
+        #result{
+            margin-top:20px;
+            padding:10px;
+            background:#e8ffe8;
+            border-radius:5px;
+            display:none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Online Bus Ticket Booking</h2>
+
+<label>Name</label>
+<input type="text" id="name" placeholder="Enter Name">
+
+<label>Bus Type</label>
+<select id="bus">
+    <option>Volvo</option>
+    <option>AC Coach</option>
+    <option>Sleeper Coach</option>
+</select>
+
+<label>From</label>
+<input type="text" id="from" placeholder="Starting Place">
+
+<label>To</label>
+<input type="text" id="to" placeholder="Destination">
+
+<label>Date</label>
+<input type="date" id="date">
+
+<label>Seat Number</label>
+<select id="seat">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+</select>
+
+<button onclick="bookTicket()">Book Ticket</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+function bookTicket(){
+
+var name=document.getElementById("name").value;
+var bus=document.getElementById("bus").value;
+var from=document.getElementById("from").value;
+var to=document.getElementById("to").value;
+var date=document.getElementById("date").value;
+var seat=document.getElementById("seat").value;
+
+if(name=="" || from=="" || to=="" || date==""){
+    alert("Please fill all fields");
+    return;
+}
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("result").innerHTML=
+"<h3>Ticket Booked Successfully!</h3>"+
+"<b>Name:</b> "+name+"<br>"+
+"<b>Bus:</b> "+bus+"<br>"+
+"<b>Route:</b> "+from+" → "+to+"<br>"+
+"<b>Date:</b> "+date+"<br>"+
+"<b>Seat No:</b> "+seat+"<br><br>"+
+"<b>Thank You for Booking!</b>";
+}
+</script>
+
+</body>
+</html>
