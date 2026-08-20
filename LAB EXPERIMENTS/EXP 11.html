@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Railway Reservation System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background: #00509e;
+            text-align: center;
+            padding: 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 17px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px gray;
+        }
+
+        h2 {
+            color: #003366;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #003366;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #00509e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #003366;
+            color: white;
+        }
+
+        footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Online Railway Reservation System</h1>
+    <p>Book Your Train Tickets Easily</p>
+</header>
+
+<nav>
+    <a href="#login">Login</a>
+    <a href="#search">Search Train</a>
+    <a href="#booking">Book Ticket</a>
+    <a href="#pnr">PNR Status</a>
+    <a href="#cancel">Cancel Ticket</a>
+    <a href="#admin">Admin</a>
+</nav>
+
+<div class="container">
+
+    <div class="box" id="login">
+        <h2>Passenger Login</h2>
+
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+
+        <button onclick="alert('Login Successful')">Login</button>
+    </div>
+
+    <div class="box" id="search">
+        <h2>Search Train</h2>
+
+        <input type="text" placeholder="Origin Station">
+        <input type="text" placeholder="Destination Station">
+
+        <input type="date">
+
+        <select>
+            <option>Select Class</option>
+            <option>Sleeper</option>
+            <option>AC</option>
+            <option>First Class</option>
+        </select>
+
+        <button onclick="showTrains()">Search Train</button>
+
+        <div id="trainResult"></div>
+    </div>
+
+    <div class="box" id="booking">
+        <h2>Book Ticket</h2>
+
+        <input type="text" placeholder="Passenger Name">
+
+        <input type="number" placeholder="Age">
+
+        <select>
+            <option>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <input type="text" placeholder="Train Number">
+
+        <select>
+            <option>Select Class</option>
+            <option>Sleeper</option>
+            <option>AC</option>
+            <option>First Class</option>
+        </select>
+
+        <select>
+            <option>Select Payment Mode</option>
+            <option>Online</option>
+            <option>Offline</option>
+        </select>
+
+        <button onclick="bookTicket()">Book Ticket</button>
+
+        <p id="bookingResult"></p>
+    </div>
+
+    <div class="box" id="pnr">
+        <h2>Check PNR Status</h2>
+
+        <input type="text" id="pnrNumber" placeholder="Enter PNR Number">
+
+        <button onclick="checkPNR()">Check Status</button>
+
+        <p id="pnrResult"></p>
+    </div>
+
+    <div class="box" id="cancel">
+        <h2>Cancel Ticket</h2>
+
+        <input type="text" id="cancelPNR" placeholder="Enter PNR Number">
+
+        <button onclick="cancelTicket()">Cancel Ticket</button>
+
+        <p id="cancelResult"></p>
+    </div>
+
+    <div class="box" id="admin">
+        <h2>Admin Panel</h2>
+
+        <input type="text" placeholder="Train Number">
+        <input type="text" placeholder="Train Name">
+        <input type="text" placeholder="Source Station">
+        <input type="text" placeholder="Destination Station">
+        <input type="number" placeholder="Total Seats">
+
+        <button onclick="alert('Train Details Added Successfully')">
+            Add Train
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Online Railway Reservation System</p>
+</footer>
+
+<script>
+
+function showTrains() {
+    document.getElementById("trainResult").innerHTML = `
+        <table>
+            <tr>
+                <th>Train No</th>
+                <th>Train Name</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Seats Available</th>
+            </tr>
+
+            <tr>
+                <td>12601</td>
+                <td>Chennai Express</td>
+                <td>06:00 AM</td>
+                <td>11:30 AM</td>
+                <td>80</td>
+            </tr>
+
+            <tr>
+                <td>12702</td>
+                <td>Hyderabad Express</td>
+                <td>08:00 AM</td>
+                <td>06:00 PM</td>
+                <td>100</td>
+            </tr>
+        </table>
+    `;
+}
+
+function bookTicket() {
+    let pnr = "PNR" + Math.floor(10000 + Math.random() * 90000);
+
+    document.getElementById("bookingResult").innerHTML =
+        "<b>Ticket Booked Successfully!</b><br>Your PNR Number: " + pnr;
+}
+
+function checkPNR() {
+    let pnr = document.getElementById("pnrNumber").value;
+
+    if (pnr === "") {
+        document.getElementById("pnrResult").innerHTML =
+            "Please enter PNR Number";
+    } else {
+        document.getElementById("pnrResult").innerHTML =
+            "PNR: " + pnr + "<br><b>Status: Confirmed</b>";
+    }
+}
+
+function cancelTicket() {
+    let pnr = document.getElementById("cancelPNR").value;
+
+    if (pnr === "") {
+        document.getElementById("cancelResult").innerHTML =
+            "Please enter PNR Number";
+    } else {
+        document.getElementById("cancelResult").innerHTML =
+            "Ticket with PNR " + pnr +
+            " has been cancelled.<br>Refund amount will be processed.";
+    }
+}
+
+</script>
+
+</body>
+</html>

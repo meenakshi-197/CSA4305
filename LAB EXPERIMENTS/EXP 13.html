@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Cake Ordering System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #fff5f7;
+        }
+
+        header {
+            background: #d63384;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background: #a61e4d;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        h2 {
+            color: #d63384;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #a61e4d;
+        }
+
+        .cakes {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cake {
+            width: 30%;
+            min-width: 220px;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .cake img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        footer {
+            background: #a61e4d;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        #orderResult, #trackResult {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+
+        @media(max-width: 700px) {
+            .cake {
+                width: 100%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Buy A Cake</h1>
+    <p>Order Delicious Cakes Online</p>
+</header>
+
+<nav>
+    <a href="#login">Login</a>
+    <a href="#cakes">Cakes</a>
+    <a href="#order">Order Cake</a>
+    <a href="#track">Track Order</a>
+    <a href="#admin">Admin</a>
+</nav>
+
+<div class="container">
+
+    <div class="box" id="login">
+        <h2>User Login</h2>
+
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+
+        <button onclick="alert('Login Successful')">Login</button>
+    </div>
+
+    <div class="box" id="cakes">
+        <h2>Available Cakes</h2>
+
+        <select>
+            <option>Select Category</option>
+            <option>Birthday Cake</option>
+            <option>Wedding Cake</option>
+            <option>Anniversary Cake</option>
+            <option>Chocolate Cake</option>
+        </select>
+
+        <div class="cakes">
+
+            <div class="cake">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587">
+                <h3>Chocolate Cake</h3>
+                <p>Price: ₹500</p>
+                <button onclick="selectCake('Chocolate Cake', 500)">
+                    Select
+                </button>
+            </div>
+
+            <div class="cake">
+                <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e">
+                <h3>Strawberry Cake</h3>
+                <p>Price: ₹600</p>
+                <button onclick="selectCake('Strawberry Cake', 600)">
+                    Select
+                </button>
+            </div>
+
+            <div class="cake">
+                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d">
+                <h3>Vanilla Cake</h3>
+                <p>Price: ₹450</p>
+                <button onclick="selectCake('Vanilla Cake', 450)">
+                    Select
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="box" id="order">
+        <h2>Order Your Cake</h2>
+
+        <input type="text" id="cakeName" placeholder="Selected Cake" readonly>
+
+        <select id="cakeSize">
+            <option>Select Cake Size</option>
+            <option>Half KG</option>
+            <option>1 KG</option>
+            <option>2 KG</option>
+        </select>
+
+        <input type="text" id="cakeMessage" placeholder="Message on Cake">
+
+        <input type="text" id="customerName" placeholder="Customer Name">
+
+        <textarea id="address" placeholder="Delivery Address"></textarea>
+
+        <input type="tel" id="phone" placeholder="Phone Number">
+
+        <select id="payment">
+            <option>Select Payment Mode</option>
+            <option>UPI</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Cash on Delivery</option>
+        </select>
+
+        <button onclick="placeOrder()">Place Order</button>
+
+        <div id="orderResult"></div>
+    </div>
+
+    <div class="box" id="track">
+        <h2>Track Your Order</h2>
+
+        <input type="text" id="orderId" placeholder="Enter Order ID">
+
+        <button onclick="trackOrder()">Track Order</button>
+
+        <div id="trackResult"></div>
+    </div>
+
+    <div class="box" id="admin">
+        <h2>Admin Panel</h2>
+
+        <input type="text" placeholder="Cake Name">
+
+        <select>
+            <option>Select Category</option>
+            <option>Birthday</option>
+            <option>Wedding</option>
+            <option>Anniversary</option>
+        </select>
+
+        <input type="number" placeholder="Cake Price">
+
+        <input type="number" placeholder="Available Quantity">
+
+        <button onclick="alert('Cake Added Successfully')">
+            Add Cake
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Buy A Cake - Online Cake Ordering System</p>
+</footer>
+
+<script>
+
+let selectedCake = "";
+let selectedPrice = 0;
+let generatedOrderId = "";
+
+function selectCake(name, price) {
+    selectedCake = name;
+    selectedPrice = price;
+
+    document.getElementById("cakeName").value = name;
+
+    document.getElementById("order").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function placeOrder() {
+
+    let customerName =
+        document.getElementById("customerName").value;
+
+    let address =
+        document.getElementById("address").value;
+
+    if (selectedCake === "" || customerName === "" || address === "") {
+
+        document.getElementById("orderResult").innerHTML =
+            "Please select a cake and enter all details.";
+
+        return;
+    }
+
+    generatedOrderId =
+        "CAKE" + Math.floor(10000 + Math.random() * 90000);
+
+    document.getElementById("orderResult").innerHTML =
+        "<b>Order Placed Successfully!</b><br>" +
+        "Cake: " + selectedCake + "<br>" +
+        "Price: ₹" + selectedPrice + "<br>" +
+        "Order ID: <b>" + generatedOrderId + "</b><br>" +
+        "Your order confirmation has been generated.";
+}
+
+function trackOrder() {
+
+    let orderId =
+        document.getElementById("orderId").value;
+
+    if (orderId === "") {
+
+        document.getElementById("trackResult").innerHTML =
+            "Please enter your Order ID.";
+
+    } else {
+
+        document.getElementById("trackResult").innerHTML =
+            "<b>Order ID:</b> " + orderId +
+            "<br><b>Status:</b> Order Confirmed and Preparing for Delivery.";
+    }
+}
+
+</script>
+
+</body>
+</html>

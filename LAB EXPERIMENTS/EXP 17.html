@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub - Online Fashion Store</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background: #444;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 12px;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        h2 {
+            color: #222;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #222;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #666;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product {
+            width: 30%;
+            min-width: 220px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #cartTotal {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media(max-width: 700px) {
+            .product {
+                width: 100%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>StyleHub</h1>
+    <p>Your Online Fashion Store</p>
+</header>
+
+<nav>
+    <a href="#login">Login</a>
+    <a href="#products">Products</a>
+    <a href="#wishlist">Wishlist</a>
+    <a href="#cart">Cart</a>
+    <a href="#order">Order</a>
+    <a href="#track">Track Order</a>
+    <a href="#admin">Admin</a>
+</nav>
+
+<div class="container">
+
+    <div class="box" id="login">
+        <h2>User Login</h2>
+
+        <input type="text" placeholder="Username or Email">
+        <input type="password" placeholder="Password">
+
+        <button onclick="alert('Login Successful')">Login</button>
+    </div>
+
+    <div class="box" id="products">
+        <h2>Fashion Products</h2>
+
+        <input type="text" id="searchProduct" placeholder="Search products">
+
+        <select id="category">
+            <option>All Categories</option>
+            <option>Men</option>
+            <option>Women</option>
+            <option>Children</option>
+            <option>Footwear</option>
+            <option>Accessories</option>
+        </select>
+
+        <button onclick="searchProducts()">Search</button>
+
+        <div class="products">
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab">
+                <h3>Men Casual Shirt</h3>
+                <p>Category: Men</p>
+                <p>Size: M, L, XL</p>
+                <p>₹999</p>
+
+                <button onclick="addToCart('Men Casual Shirt', 999)">
+                    Add to Cart
+                </button>
+
+                <button onclick="addToWishlist('Men Casual Shirt')">
+                    Wishlist
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c">
+                <h3>Women Dress</h3>
+                <p>Category: Women</p>
+                <p>Size: S, M, L</p>
+                <p>₹1499</p>
+
+                <button onclick="addToCart('Women Dress', 1499)">
+                    Add to Cart
+                </button>
+
+                <button onclick="addToWishlist('Women Dress')">
+                    Wishlist
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+                <h3>Sports Shoes</h3>
+                <p>Category: Footwear</p>
+                <p>Size: 7, 8, 9, 10</p>
+                <p>₹1999</p>
+
+                <button onclick="addToCart('Sports Shoes', 1999)">
+                    Add to Cart
+                </button>
+
+                <button onclick="addToWishlist('Sports Shoes')">
+                    Wishlist
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="box" id="wishlist">
+        <h2>My Wishlist</h2>
+        <div id="wishlistItems">
+            No items in wishlist.
+        </div>
+    </div>
+
+    <div class="box" id="cart">
+        <h2>Shopping Cart</h2>
+
+        <div id="cartItems">
+            Your cart is empty.
+        </div>
+
+        <p id="cartTotal">Total: ₹0</p>
+    </div>
+
+    <div class="box" id="order">
+        <h2>Place Order</h2>
+
+        <input type="text" id="customerName" placeholder="Customer Name">
+
+        <input type="text" id="address" placeholder="Delivery Address">
+
+        <input type="tel" id="phone" placeholder="Phone Number">
+
+        <select id="payment">
+            <option>Select Payment Method</option>
+            <option>UPI</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Cash on Delivery</option>
+        </select>
+
+        <button onclick="placeOrder()">Place Order</button>
+
+        <p id="orderResult"></p>
+    </div>
+
+    <div class="box" id="track">
+        <h2>Track Order</h2>
+
+        <input type="text" id="orderId" placeholder="Enter Order ID">
+
+        <button onclick="trackOrder()">Track Order</button>
+
+        <p id="trackResult"></p>
+    </div>
+
+    <div class="box" id="admin">
+        <h2>Admin Panel</h2>
+
+        <input type="text" placeholder="Product Name">
+
+        <select>
+            <option>Select Category</option>
+            <option>Men</option>
+            <option>Women</option>
+            <option>Children</option>
+            <option>Footwear</option>
+            <option>Accessories</option>
+        </select>
+
+        <input type="number" placeholder="Product Price">
+
+        <input type="number" placeholder="Available Stock">
+
+        <button onclick="alert('Product Added Successfully')">
+            Add Product
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 StyleHub - Online Fashion Store</p>
+</footer>
+
+<script>
+
+let cart = [];
+let wishlist = [];
+let total = 0;
+let generatedOrderId = "";
+
+function addToCart(name, price) {
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    total += price;
+
+    displayCart();
+
+    alert(name + " added to cart");
+}
+
+function displayCart() {
+
+    let output = "";
+
+    for (let i = 0; i < cart.length; i++) {
+
+        output +=
+            "<div class='cart-item'>" +
+            cart[i].name +
+            " - ₹" +
+            cart[i].price +
+            "</div>";
+    }
+
+    document.getElementById("cartItems").innerHTML =
+        output;
+
+    document.getElementById("cartTotal").innerHTML =
+        "Total: ₹" + total;
+}
+
+function addToWishlist(name) {
+
+    if (!wishlist.includes(name)) {
+
+        wishlist.push(name);
+
+        document.getElementById("wishlistItems").innerHTML =
+            wishlist.join("<br>");
+
+        alert(name + " added to wishlist");
+
+    } else {
+
+        alert("Item already in wishlist");
+    }
+}
+
+function searchProducts() {
+
+    let search =
+        document.getElementById("searchProduct").value;
+
+    if (search === "") {
+
+        alert("Showing all products");
+
+    } else {
+
+        alert("Searching for: " + search);
+    }
+}
+
+function placeOrder() {
+
+    let name =
+        document.getElementById("customerName").value;
+
+    let address =
+        document.getElementById("address").value;
+
+    let payment =
+        document.getElementById("payment").value;
+
+    if (
+        cart.length === 0 ||
+        name === "" ||
+        address === "" ||
+        payment === "Select Payment Method"
+    ) {
+
+        document.getElementById("orderResult").innerHTML =
+            "Please add products and fill all details.";
+
+        return;
+    }
+
+    generatedOrderId =
+        "ORD" + Math.floor(10000 + Math.random() * 90000);
+
+    document.getElementById("orderResult").innerHTML =
+        "<b>Order Placed Successfully!</b><br>" +
+        "Order ID: <b>" + generatedOrderId + "</b><br>" +
+        "Total Amount: ₹" + total + "<br>" +
+        "Status: Order Confirmed";
+}
+
+function trackOrder() {
+
+    let orderId =
+        document.getElementById("orderId").value;
+
+    if (orderId === "") {
+
+        document.getElementById("trackResult").innerHTML =
+            "Please enter an Order ID.";
+
+    } else {
+
+        document.getElementById("trackResult").innerHTML =
+            "<b>Order ID:</b> " + orderId +
+            "<br><b>Status:</b> Order is being processed.";
+    }
+}
+
+</script>
+
+</body>
+</html>

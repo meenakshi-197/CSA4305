@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TechSavvy - Online Gadget Store</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: #2563eb;
+            color: white;
+            padding: 55px 6%;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #172554;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .product-icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+        }
+
+        .product h3 {
+            color: #172554;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            margin: 8px 0;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #dc2626;
+        }
+
+        .discount {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .product-buttons {
+            margin-top: 15px;
+        }
+
+        .product-buttons button {
+            margin: 4px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            background: #e0e7ff;
+        }
+
+        .category-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .full {
+            grid-column: 1 / 3;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-box {
+            background: #172554;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .wishlist-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #172554;
+            color: white;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .success {
+            color: #16a34a;
+        }
+
+        .warning {
+            color: #ca8a04;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .search-grid,
+            .product-grid,
+            .category-grid,
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <h1>🛒 TechSavvy</h1>
+
+    <nav>
+
+        <a onclick="showSection('home')">
+            Home
+        </a>
+
+        <a onclick="showSection('products')">
+            Products
+        </a>
+
+        <a onclick="showSection('categories')">
+            Categories
+        </a>
+
+        <a onclick="showSection('cart')">
+            Cart
+        </a>
+
+        <a onclick="showSection('wishlist')">
+            Wishlist
+        </a>
+
+        <a onclick="showSection('dashboard')">
+            Dashboard
+        </a>
+
+        <a onclick="showSection('login')">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section id="home">
+
+    <div class="hero">
+
+        <h2>Welcome to TechSavvy</h2>
+
+        <p>
+            Latest smartphones, laptops, tablets
+            and accessories at the best prices.
+        </p>
+
+        <button onclick="showSection('products')">
+            Shop Now
+        </button>
+
+    </div>
+
+
+    <div class="container">
+
+        <!-- SEARCH -->
+
+        <div class="card">
+
+            <h2>Search Products</h2>
+
+            <div class="search-grid">
+
+                <div>
+
+                    <label>Search</label>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search gadgets...">
+
+                </div>
+
+
+                <div>
+
+                    <label>Category</label>
+
+                    <select id="searchCategory">
+
+                        <option value="all">
+                            All Categories
+                        </option>
+
+                        <option value="smartphone">
+                            Smartphones
+                        </option>
+
+                        <option value="laptop">
+                            Laptops
+                        </option>
+
+                        <option value="tablet">
+                            Tablets
+                        </option>
+
+                        <option value="accessory">
+                            Accessories
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Sort By</label>
+
+                    <select>
+
+                        <option>
+                            Popular
+                        </option>
+
+                        <option>
+                            Price: Low to High
+                        </option>
+
+                        <option>
+                            Price: High to Low
+                        </option>
+
+                        <option>
+                            Latest
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <br>
+
+            <button onclick="searchProducts()">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- PROMOTIONS -->
+
+        <div class="card">
+
+            <h2>🔥 Exclusive Online Deals</h2>
+
+            <p>
+                Get up to <b>30% OFF</b> on selected
+                smartphones, laptops and accessories.
+            </p>
+
+            <br>
+
+            <button onclick="showSection('products')">
+                View Offers
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section id="categories" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Product Categories</h2>
+
+
+            <div class="category-grid">
+
+
+                <div class="category"
+                     onclick="filterCategory('smartphone')">
+
+                    <div class="category-icon">
+                        📱
+                    </div>
+
+                    <h3>Smartphones</h3>
+
+                    <p>
+                        Latest smartphones
+                    </p>
+
+                </div>
+
+
+                <div class="category"
+                     onclick="filterCategory('laptop')">
+
+                    <div class="category-icon">
+                        💻
+                    </div>
+
+                    <h3>Laptops</h3>
+
+                    <p>
+                        Powerful laptops
+                    </p>
+
+                </div>
+
+
+                <div class="category"
+                     onclick="filterCategory('tablet')">
+
+                    <div class="category-icon">
+                        📲
+                    </div>
+
+                    <h3>Tablets</h3>
+
+                    <p>
+                        Portable tablets
+                    </p>
+
+                </div>
+
+
+                <div class="category"
+                     onclick="filterCategory('accessory')">
+
+                    <div class="category-icon">
+                        🎧
+                    </div>
+
+                    <h3>Accessories</h3>
+
+                    <p>
+                        Gadgets and accessories
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCTS -->
+
+<section id="products" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Product Catalogue</h2>
+
+
+            <div class="product-grid">
+
+
+                <!-- PRODUCT 1 -->
+
+                <div class="product"
+                     data-category="smartphone">
+
+                    <div class="product-icon">
+                        📱
+                    </div>
+
+                    <h3>Galaxy Pro X</h3>
+
+                    <p>
+                        5G Smartphone
+                    </p>
+
+                    <p>
+                        256GB Storage
+                    </p>
+
+                    <p class="price">
+                        ₹59,999
+                    </p>
+
+                    <p class="discount">
+                        15% OFF
+                    </p>
+
+                    <p>
+                        ⭐ 4.7 / 5
+                    </p>
+
+                    <div class="product-buttons">
+
+                        <button
+                            onclick="addToCart('Galaxy Pro X',59999)">
+
+                            Add to Cart
+
+                        </button>
+
+                        <button
+                            onclick="addWishlist('Galaxy Pro X')">
+
+                            ♡ Wishlist
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 2 -->
+
+                <div class="product"
+                     data-category="laptop">
+
+                    <div class="product-icon">
+                        💻
+                    </div>
+
+                    <h3>TechBook Ultra</h3>
+
+                    <p>
+                        Intel Core i7
+                    </p>
+
+                    <p>
+                        16GB RAM / 512GB SSD
+                    </p>
+
+                    <p class="price">
+                        ₹89,999
+                    </p>
+
+                    <p class="discount">
+                        20% OFF
+                    </p>
+
+                    <p>
+                        ⭐ 4.8 / 5
+                    </p>
+
+                    <div class="product-buttons">
+
+                        <button
+                            onclick="addToCart('TechBook Ultra',89999)">
+
+                            Add to Cart
+
+                        </button>
+
+                        <button
+                            onclick="addWishlist('TechBook Ultra')">
+
+                            ♡ Wishlist
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 3 -->
+
+                <div class="product"
+                     data-category="tablet">
+
+                    <div class="product-icon">
+                        📲
+                    </div>
+
+                    <h3>TabMax 12</h3>
+
+                    <p>
+                        12-inch Display
+                    </p>
+
+                    <p>
+                        256GB Storage
+                    </p>
+
+                    <p class="price">
+                        ₹39,999
+                    </p>
+
+                    <p class="discount">
+                        10% OFF
+                    </p>
+
+                    <p>
+                        ⭐ 4.6 / 5
+                    </p>
+
+                    <div class="product-buttons">
+
+                        <button
+                            onclick="addToCart('TabMax 12',39999)">
+
+                            Add to Cart
+
+                        </button>
+
+                        <button
+                            onclick="addWishlist('TabMax 12')">
+
+                            ♡ Wishlist
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 4 -->
+
+                <div class="product"
+                     data-category="accessory">
+
+                    <div class="product-icon">
+                        🎧
+                    </div>
+
+                    <h3>SoundPods Pro</h3>
+
+                    <p>
+                        Wireless Earbuds
+                    </p>
+
+                    <p>
+                        Noise Cancellation
+                    </p>
+
+                    <p class="price">
+                        ₹4,999
+                    </p>
+
+                    <p class="discount">
+                        30% OFF
+                    </p>
+
+                    <p>
+                        ⭐ 4.5 / 5
+                    </p>
+
+                    <div class="product-buttons">
+
+                        <button
+                            onclick="addToCart('SoundPods Pro',4999)">
+
+                            Add to Cart
+
+                        </button>
+
+                        <button
+                            onclick="addWishlist('SoundPods Pro')">
+
+                            ♡ Wishlist
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT REVIEWS -->
+
+        <div class="card">
+
+            <h2>Customer Reviews</h2>
+
+            <p>
+                ⭐⭐⭐⭐⭐
+                "Excellent product and fast delivery."
+            </p>
+
+            <br>
+
+            <p>
+                ⭐⭐⭐⭐
+                "Good quality at a reasonable price."
+            </p>
+
+            <br>
+
+            <p>
+                ⭐⭐⭐⭐⭐
+                "Very smooth shopping experience."
+            </p>
+
+        </div>
+
+
+        <!-- RECOMMENDATIONS -->
+
+        <div class="card">
+
+            <h2>Recommended For You</h2>
+
+            <p>
+                Based on your browsing and purchase history:
+            </p>
+
+            <br>
+
+            <ul>
+
+                <li>
+                    SoundPods Pro
+                </li>
+
+                <li>
+                    Galaxy Pro X
+                </li>
+
+                <li>
+                    TechBook Ultra
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Shopping Cart</h2>
+
+            <div id="cartItems">
+
+                <p>
+                    Your cart is empty.
+                </p>
+
+            </div>
+
+
+            <div class="cart-total">
+
+                Total:
+                ₹<span id="cartTotal">0</span>
+
+            </div>
+
+
+            <br>
+
+            <button onclick="checkout()">
+
+                Proceed to Checkout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WISHLIST -->
+
+<section id="wishlist" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>My Wishlist</h2>
+
+            <div id="wishlistItems">
+
+                <p>
+                    Your wishlist is empty.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkout" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Checkout</h2>
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="customerEmail">
+
+                </div>
+
+
+                <div class="full">
+
+                    <label>
+                        Delivery Address
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        City
+                    </label>
+
+                    <input
+                        type="text">
+
+                </div>
+
+
+                <div>
+
+                    <label>
+                        PIN Code
+                    </label>
+
+                    <input
+                        type="text">
+
+                </div>
+
+            </div>
+
+
+            <br>
+
+            <h3>Payment Method</h3>
+
+            <br>
+
+
+            <select>
+
+                <option>
+                    Credit / Debit Card
+                </option>
+
+                <option>
+                    UPI
+                </option>
+
+                <option>
+                    Net Banking
+                </option>
+
+                <option>
+                    Cash on Delivery
+                </option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <button onclick="placeOrder()">
+
+                Place Order
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>User Login</h2>
+
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="loginEmail">
+
+
+            <br><br>
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password">
+
+
+            <br><br>
+
+
+            <button onclick="loginUser()">
+
+                Login
+
+            </button>
+
+
+            <button onclick="showSection('register')">
+
+                Register
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Create Account</h2>
+
+
+            <label>
+                Full Name
+            </label>
+
+            <input type="text">
+
+
+            <br><br>
+
+
+            <label>
+                Email
+            </label>
+
+            <input type="email">
+
+
+            <br><br>
+
+
+            <label>
+                Password
+            </label>
+
+            <input type="password">
+
+
+            <br><br>
+
+
+            <label>
+                Confirm Password
+            </label>
+
+            <input type="password">
+
+
+            <br><br>
+
+
+            <button onclick="registerUser()">
+
+                Create Account
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="hidden">
+
+    <div class="container">
+
+
+        <div class="card">
+
+            <h2>My Dashboard</h2>
+
+
+            <div class="dashboard">
+
+
+                <div class="dashboard-box">
+
+                    <h3>Total Orders</h3>
+
+                    <br>
+
+                    <h2>
+                        12
+                    </h2>
+
+                </div>
+
+
+                <div class="dashboard-box">
+
+                    <h3>Wishlist</h3>
+
+                    <br>
+
+                    <h2>
+                        5
+                    </h2>
+
+                </div>
+
+
+                <div class="dashboard-box">
+
+                    <h3>Pending Orders</h3>
+
+                    <br>
+
+                    <h2>
+                        2
+                    </h2>
+
+                </div>
+
+
+                <div class="dashboard-box">
+
+                    <h3>Delivered</h3>
+
+                    <br>
+
+                    <h2>
+                        10
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDER TRACKING -->
+
+        <div class="card">
+
+            <h2>Order Tracking</h2>
+
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Order ID
+                    </th>
+
+                    <th>
+                        Product
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        TS1001
+                    </td>
+
+                    <td>
+                        Galaxy Pro X
+                    </td>
+
+                    <td>
+                        18-08-2026
+                    </td>
+
+                    <td>
+                        ₹59,999
+                    </td>
+
+                    <td class="success">
+                        Delivered
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        TS1002
+                    </td>
+
+                    <td>
+                        SoundPods Pro
+                    </td>
+
+                    <td>
+                        19-08-2026
+                    </td>
+
+                    <td>
+                        ₹4,999
+                    </td>
+
+                    <td class="warning">
+                        Shipped
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 TechSavvy Electronics
+    </p>
+
+    <p>
+        Online Gadget Shopping Platform
+    </p>
+
+</footer>
+
+
+<script>
+
+
+    let cart = [];
+
+    let wishlist = [];
+
+
+    // SECTION NAVIGATION
+
+    function showSection(sectionId) {
+
+        const sections = [
+            "home",
+            "categories",
+            "products",
+            "cart",
+            "wishlist",
+            "checkout",
+            "login",
+            "register",
+            "dashboard"
+        ];
+
+
+        sections.forEach(function(section) {
+
+            document
+                .getElementById(section)
+                .classList.add("hidden");
+
+        });
+
+
+        document
+            .getElementById(sectionId)
+            .classList.remove("hidden");
+
+
+        window.scrollTo(0, 0);
+
+    }
+
+
+    // SEARCH PRODUCTS
+
+    function searchProducts() {
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+        const category =
+            document
+                .getElementById("searchCategory")
+                .value;
+
+
+        const products =
+            document.querySelectorAll(".product");
+
+
+        products.forEach(function(product) {
+
+            const name =
+                product
+                    .querySelector("h3")
+                    .innerText
+                    .toLowerCase();
+
+            const productCategory =
+                product
+                    .getAttribute("data-category");
+
+
+            const nameMatch =
+                name.includes(search);
+
+            const categoryMatch =
+                category === "all" ||
+                productCategory === category;
+
+
+            if (nameMatch && categoryMatch) {
+
+                product.style.display = "block";
+
+            } else {
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+
+        showSection("products");
+
+    }
+
+
+    // CATEGORY FILTER
+
+    function filterCategory(category) {
+
+        const products =
+            document.querySelectorAll(".product");
+
+
+        products.forEach(function(product) {
+
+            if (
+                product.getAttribute("data-category")
+                === category
+            ) {
+
+                product.style.display = "block";
+
+            } else {
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+
+        showSection("products");
+
+    }
+
+
+    // ADD TO CART
+
+    function addToCart(name, price) {
+
+        cart.push({
+            name: name,
+            price: price
+        });
+
+
+        updateCart();
+
+
+        alert(
+            name +
+            " has been added to your cart."
+        );
+
+    }
+
+
+    // UPDATE CART
+
+    function updateCart() {
+
+        const cartItems =
+            document.getElementById("cartItems");
+
+
+        const cartTotal =
+            document.getElementById("cartTotal");
+
+
+        if (cart.length === 0) {
+
+            cartItems.innerHTML =
+                "<p>Your cart is empty.</p>";
+
+            cartTotal.innerText = "0";
+
+            return;
+
+        }
+
+
+        cartItems.innerHTML = "";
+
+        let total = 0;
+
+
+        cart.forEach(function(item, index) {
+
+            total += item.price;
+
+
+            const div =
+                document.createElement("div");
+
+
+            div.className = "cart-item";
+
+
+            div.innerHTML =
+
+                "<div>" +
+
+                "<b>" +
+                item.name +
+                "</b>" +
+
+                "<br>" +
+
+                "₹" +
+                item.price +
+
+                "</div>" +
+
+                "<button onclick='removeFromCart(" +
+                index +
+                ")'>" +
+
+                "Remove" +
+
+                "</button>";
+
+
+            cartItems.appendChild(div);
+
+        });
+
+
+        cartTotal.innerText =
+            total.toLocaleString("en-IN");
+
+    }
+
+
+    // REMOVE CART ITEM
+
+    function removeFromCart(index) {
+
+        cart.splice(index, 1);
+
+        updateCart();
+
+    }
+
+
+    // WISHLIST
+
+    function addWishlist(name) {
+
+        if (!wishlist.includes(name)) {
+
+            wishlist.push(name);
+
+        }
+
+
+        updateWishlist();
+
+
+        alert(
+            name +
+            " added to wishlist."
+        );
+
+    }
+
+
+    // UPDATE WISHLIST
+
+    function updateWishlist() {
+
+        const wishlistItems =
+            document.getElementById("wishlistItems");
+
+
+        if (wishlist.length === 0) {
+
+            wishlistItems.innerHTML =
+                "<p>Your wishlist is empty.</p>";
+
+            return;
+
+        }
+
+
+        wishlistItems.innerHTML = "";
+
+
+        wishlist.forEach(function(item) {
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "wishlist-item";
+
+
+            div.innerHTML =
+                "❤️ <b>" +
+                item +
+                "</b>";
+
+
+            wishlistItems.appendChild(div);
+
+        });
+
+    }
+
+
+    // CHECKOUT
+
+    function checkout() {
+
+        if (cart.length === 0) {
+
+            alert(
+                "Your cart is empty."
+            );
+
+            return;
+
+        }
+
+
+        showSection("checkout");
+
+    }
+
+
+    // PLACE ORDER
+
+    function placeOrder() {
+
+        const name =
+            document
+                .getElementById("customerName")
+                .value;
+
+        const email =
+            document
+                .getElementById("customerEmail")
+                .value;
+
+        const address =
+            document
+                .getElementById("address")
+                .value;
+
+
+        if (
+            name === "" ||
+            email === "" ||
+            address === ""
+        ) {
+
+            alert(
+                "Please fill in all delivery details."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Payment successful!\n\n" +
+            "Order placed successfully!\n" +
+            "Order confirmation email sent.\n" +
+            "Your order can be tracked from the dashboard."
+        );
+
+
+        cart = [];
+
+        updateCart();
+
+        showSection("dashboard");
+
+    }
+
+
+    // LOGIN
+
+    function loginUser() {
+
+        const email =
+            document
+                .getElementById("loginEmail")
+                .value;
+
+
+        if (email === "") {
+
+            alert(
+                "Please enter your email."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "Login successful!"
+        );
+
+
+        showSection("dashboard");
+
+    }
+
+
+    // REGISTER
+
+    function registerUser() {
+
+        alert(
+            "Account created successfully!"
+        );
+
+
+        showSection("login");
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

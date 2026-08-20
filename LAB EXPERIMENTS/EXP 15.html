@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedCare Hospital Appointment System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f0f8ff;
+        }
+
+        header {
+            background: #1976d2;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background: #0d47a1;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 12px;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #bbb;
+        }
+
+        h2 {
+            color: #1976d2;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        .doctors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .doctor {
+            width: 30%;
+            min-width: 220px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #1976d2;
+            color: white;
+        }
+
+        #bookingResult, #cancelResult {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media(max-width: 700px) {
+            .doctor {
+                width: 100%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>MedCare Hospital</h1>
+    <p>Online Doctor Appointment Booking System</p>
+</header>
+
+<nav>
+    <a href="#login">Login</a>
+    <a href="#hospital">Hospitals</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#booking">Book Appointment</a>
+    <a href="#history">Appointment History</a>
+    <a href="#cancel">Cancel Appointment</a>
+    <a href="#profile">Profile</a>
+</nav>
+
+<div class="container">
+
+    <div class="box" id="login">
+        <h2>Patient Login</h2>
+
+        <input type="text" placeholder="Username or Email">
+        <input type="password" placeholder="Password">
+
+        <button onclick="alert('Login Successful')">Login</button>
+    </div>
+
+    <div class="box" id="hospital">
+        <h2>Search Hospital</h2>
+
+        <input type="text" id="hospitalName" placeholder="Enter Hospital or Location">
+
+        <button onclick="searchHospital()">Search Hospital</button>
+
+        <p id="hospitalResult"></p>
+    </div>
+
+    <div class="box" id="doctors">
+        <h2>Available Doctors</h2>
+
+        <select>
+            <option>Select Specialty</option>
+            <option>Cardiologist</option>
+            <option>Dermatologist</option>
+            <option>Orthopedic</option>
+            <option>Neurologist</option>
+            <option>General Physician</option>
+        </select>
+
+        <div class="doctors">
+
+            <div class="doctor">
+                <h3>Dr. Arun Kumar</h3>
+                <p>Cardiologist</p>
+                <p>Available: 10:00 AM - 1:00 PM</p>
+                <button onclick="selectDoctor('Dr. Arun Kumar')">
+                    Select Doctor
+                </button>
+            </div>
+
+            <div class="doctor">
+                <h3>Dr. Priya Sharma</h3>
+                <p>Dermatologist</p>
+                <p>Available: 2:00 PM - 5:00 PM</p>
+                <button onclick="selectDoctor('Dr. Priya Sharma')">
+                    Select Doctor
+                </button>
+            </div>
+
+            <div class="doctor">
+                <h3>Dr. Ravi Kumar</h3>
+                <p>Orthopedic</p>
+                <p>Available: 9:00 AM - 12:00 PM</p>
+                <button onclick="selectDoctor('Dr. Ravi Kumar')">
+                    Select Doctor
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="box" id="booking">
+        <h2>Book Appointment</h2>
+
+        <input type="text" id="selectedDoctor" placeholder="Selected Doctor" readonly>
+
+        <input type="text" id="patientName" placeholder="Patient Name">
+
+        <input type="number" id="patientAge" placeholder="Patient Age">
+
+        <select id="appointmentDate">
+            <option>Select Appointment Date</option>
+            <option>September 1, 2026</option>
+            <option>September 2, 2026</option>
+            <option>September 3, 2026</option>
+        </select>
+
+        <select id="appointmentTime">
+            <option>Select Appointment Time</option>
+            <option>09:00 AM</option>
+            <option>10:00 AM</option>
+            <option>11:00 AM</option>
+            <option>02:00 PM</option>
+            <option>03:00 PM</option>
+        </select>
+
+        <textarea id="problem" placeholder="Describe Your Health Problem"></textarea>
+
+        <button onclick="bookAppointment()">
+            Book Appointment
+        </button>
+
+        <div id="bookingResult"></div>
+    </div>
+
+    <div class="box" id="history">
+        <h2>Appointment History</h2>
+
+        <table>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>APT1001</td>
+                <td>Dr. Arun Kumar</td>
+                <td>01-09-2026</td>
+                <td>10:00 AM</td>
+                <td>Confirmed</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box" id="cancel">
+        <h2>Cancel Appointment</h2>
+
+        <input type="text" id="appointmentId" placeholder="Enter Appointment ID">
+
+        <button onclick="cancelAppointment()">
+            Cancel Appointment
+        </button>
+
+        <div id="cancelResult"></div>
+    </div>
+
+    <div class="box" id="profile">
+        <h2>Update Profile</h2>
+
+        <input type="text" placeholder="Patient Name">
+        <input type="email" placeholder="Email Address">
+        <input type="tel" placeholder="Phone Number">
+
+        <textarea placeholder="Address"></textarea>
+
+        <button onclick="alert('Profile Updated Successfully')">
+            Update Profile
+        </button>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 MedCare Hospital - Online Appointment Booking System</p>
+</footer>
+
+<script>
+
+let selectedDoctor = "";
+let generatedAppointmentId = "";
+
+function searchHospital() {
+
+    let hospital =
+        document.getElementById("hospitalName").value;
+
+    if (hospital === "") {
+        document.getElementById("hospitalResult").innerHTML =
+            "Please enter a hospital name or location.";
+    } else {
+        document.getElementById("hospitalResult").innerHTML =
+            "<b>Hospitals Found:</b><br>" +
+            "MedCare Hospital<br>" +
+            "City Health Hospital<br>" +
+            "Apollo Care Center";
+    }
+}
+
+function selectDoctor(name) {
+
+    selectedDoctor = name;
+
+    document.getElementById("selectedDoctor").value = name;
+
+    document.getElementById("booking").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function bookAppointment() {
+
+    let patient =
+        document.getElementById("patientName").value;
+
+    let date =
+        document.getElementById("appointmentDate").value;
+
+    let time =
+        document.getElementById("appointmentTime").value;
+
+    if (
+        selectedDoctor === "" ||
+        patient === "" ||
+        date === "Select Appointment Date" ||
+        time === "Select Appointment Time"
+    ) {
+
+        document.getElementById("bookingResult").innerHTML =
+            "Please fill all required details.";
+
+        return;
+    }
+
+    generatedAppointmentId =
+        "APT" + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById("bookingResult").innerHTML =
+        "<b>Appointment Booked Successfully!</b><br>" +
+        "Appointment ID: <b>" + generatedAppointmentId + "</b><br>" +
+        "Doctor: " + selectedDoctor + "<br>" +
+        "Date: " + date + "<br>" +
+        "Time: " + time + "<br>" +
+        "Status: Confirmed";
+}
+
+function cancelAppointment() {
+
+    let appointment =
+        document.getElementById("appointmentId").value;
+
+    if (appointment === "") {
+
+        document.getElementById("cancelResult").innerHTML =
+            "Please enter an Appointment ID.";
+
+    } else {
+
+        document.getElementById("cancelResult").innerHTML =
+            "<b>Appointment " + appointment +
+            " has been cancelled successfully.</b>";
+    }
+}
+
+</script>
+
+</body>
+</html>

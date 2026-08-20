@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsureEasy - Insurance Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f2f6fc;
+        }
+
+        header {
+            background: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        nav {
+            background: #0d47a1;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 12px;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        h2 {
+            color: #1565c0;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #1565c0;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #0d47a1;
+        }
+
+        .policies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .policy {
+            width: 30%;
+            min-width: 220px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #1565c0;
+            color: white;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 17px;
+        }
+
+        footer {
+            background: #0d47a1;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media(max-width: 700px) {
+            .policy {
+                width: 100%;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 7px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>InsureEasy</h1>
+    <p>Online Insurance Management System</p>
+</header>
+
+<nav>
+    <a href="#login">Login</a>
+    <a href="#policies">Policies</a>
+    <a href="#compare">Compare</a>
+    <a href="#purchase">Buy Policy</a>
+    <a href="#dashboard">My Policies</a>
+    <a href="#payment">Payment</a>
+    <a href="#claim">Claim</a>
+    <a href="#admin">Admin</a>
+</nav>
+
+<div class="container">
+
+    <div class="box" id="login">
+        <h2>User Registration / Login</h2>
+
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+
+        <button onclick="alert('Registration/Login Successful')">
+            Login
+        </button>
+    </div>
+
+    <div class="box" id="policies">
+        <h2>Available Insurance Policies</h2>
+
+        <div class="policies">
+
+            <div class="policy">
+                <h3>Health Insurance</h3>
+                <p>Medical coverage for you and your family.</p>
+                <p>Premium: ₹500/month</p>
+
+                <button onclick="selectPolicy('Health Insurance', 500)">
+                    Select Policy
+                </button>
+            </div>
+
+            <div class="policy">
+                <h3>Auto Insurance</h3>
+                <p>Protection for your vehicle and accidents.</p>
+                <p>Premium: ₹700/month</p>
+
+                <button onclick="selectPolicy('Auto Insurance', 700)">
+                    Select Policy
+                </button>
+            </div>
+
+            <div class="policy">
+                <h3>Home Insurance</h3>
+                <p>Protect your house and valuable property.</p>
+                <p>Premium: ₹600/month</p>
+
+                <button onclick="selectPolicy('Home Insurance', 600)">
+                    Select Policy
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="box" id="compare">
+        <h2>Compare Insurance Policies</h2>
+
+        <table>
+            <tr>
+                <th>Policy</th>
+                <th>Monthly Premium</th>
+                <th>Coverage</th>
+            </tr>
+
+            <tr>
+                <td>Health Insurance</td>
+                <td>₹500</td>
+                <td>Medical Expenses</td>
+            </tr>
+
+            <tr>
+                <td>Auto Insurance</td>
+                <td>₹700</td>
+                <td>Vehicle Protection</td>
+            </tr>
+
+            <tr>
+                <td>Home Insurance</td>
+                <td>₹600</td>
+                <td>Property Protection</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="box" id="purchase">
+        <h2>Purchase Insurance Policy</h2>
+
+        <input type="text" id="selectedPolicy"
+               placeholder="Selected Policy" readonly>
+
+        <input type="number" id="customerAge"
+               placeholder="Customer Age">
+
+        <select id="policyDuration">
+            <option>Select Policy Duration</option>
+            <option>1 Year</option>
+            <option>2 Years</option>
+            <option>3 Years</option>
+        </select>
+
+        <button onclick="purchasePolicy()">
+            Purchase Policy
+        </button>
+
+        <div class="result" id="purchaseResult"></div>
+    </div>
+
+    <div class="box" id="dashboard">
+        <h2>My Insurance Policies</h2>
+
+        <table>
+            <tr>
+                <th>Policy ID</th>
+                <th>Policy Name</th>
+                <th>Premium</th>
+                <th>Due Date</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>POL1001</td>
+                <td>Health Insurance</td>
+                <td>₹500</td>
+                <td>30-09-2026</td>
+                <td>Active</td>
+            </tr>
+        </table>
+
+        <button onclick="showReminder()">
+            Check Payment Reminder
+        </button>
+
+        <div class="result" id="reminderResult"></div>
+    </div>
+
+    <div class="box" id="payment">
+        <h2>Pay Insurance Premium</h2>
+
+        <input type="text" id="paymentPolicyId"
+               placeholder="Enter Policy ID">
+
+        <input type="number" id="paymentAmount"
+               placeholder="Enter Premium Amount">
+
+        <select id="paymentMode">
+            <option>Select Payment Method</option>
+            <option>UPI</option>
+            <option>Credit Card</option>
+            <option>Debit Card</option>
+            <option>Net Banking</option>
+        </select>
+
+        <button onclick="makePayment()">
+            Pay Premium
+        </button>
+
+        <div class="result" id="paymentResult"></div>
+    </div>
+
+    <div class="box" id="claim">
+        <h2>File Insurance Claim</h2>
+
+        <input type="text" id="claimPolicyId"
+               placeholder="Enter Policy ID">
+
+        <textarea id="claimDescription"
+                  placeholder="Describe Your Claim"></textarea>
+
+        <button onclick="fileClaim()">
+            Submit Claim
+        </button>
+
+        <div class="result" id="claimResult"></div>
+    </div>
+
+    <div class="box" id="admin">
+        <h2>Admin / Manager Panel</h2>
+
+        <input type="text" placeholder="Agent Name">
+        <input type="text" placeholder="Customer Name">
+        <input type="text" placeholder="Policy ID">
+        <input type="number" placeholder="Agent Commission">
+
+        <button onclick="alert('Agent and Policy Details Added Successfully')">
+            Add Details
+        </button>
+
+        <button onclick="sendSMS()">
+            Send Payment Reminder
+        </button>
+
+        <div class="result" id="smsResult"></div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 InsureEasy - Online Insurance Management System</p>
+</footer>
+
+<script>
+
+let selectedPolicy = "";
+let selectedPremium = 0;
+
+function selectPolicy(name, premium) {
+
+    selectedPolicy = name;
+    selectedPremium = premium;
+
+    document.getElementById("selectedPolicy").value = name;
+
+    document.getElementById("purchase").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function purchasePolicy() {
+
+    let age =
+        document.getElementById("customerAge").value;
+
+    let duration =
+        document.getElementById("policyDuration").value;
+
+    if (
+        selectedPolicy === "" ||
+        age === "" ||
+        duration === "Select Policy Duration"
+    ) {
+
+        document.getElementById("purchaseResult").innerHTML =
+            "Please select a policy and enter all details.";
+
+        return;
+    }
+
+    let policyId =
+        "POL" + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById("purchaseResult").innerHTML =
+        "<b>Policy Purchased Successfully!</b><br>" +
+        "Policy ID: <b>" + policyId + "</b><br>" +
+        "Policy: " + selectedPolicy + "<br>" +
+        "Monthly Premium: ₹" + selectedPremium + "<br>" +
+        "Status: Active";
+}
+
+function showReminder() {
+
+    document.getElementById("reminderResult").innerHTML =
+        "<b>Reminder:</b> Your premium payment is due on 30-09-2026.";
+}
+
+function makePayment() {
+
+    let policyId =
+        document.getElementById("paymentPolicyId").value;
+
+    let amount =
+        document.getElementById("paymentAmount").value;
+
+    let mode =
+        document.getElementById("paymentMode").value;
+
+    if (
+        policyId === "" ||
+        amount === "" ||
+        mode === "Select Payment Method"
+    ) {
+
+        document.getElementById("paymentResult").innerHTML =
+            "Please enter all payment details.";
+
+        return;
+    }
+
+    document.getElementById("paymentResult").innerHTML =
+        "<b>Payment Successful!</b><br>" +
+        "Policy ID: " + policyId + "<br>" +
+        "Amount Paid: ₹" + amount;
+}
+
+function fileClaim() {
+
+    let policyId =
+        document.getElementById("claimPolicyId").value;
+
+    let description =
+        document.getElementById("claimDescription").value;
+
+    if (policyId === "" || description === "") {
+
+        document.getElementById("claimResult").innerHTML =
+            "Please enter Policy ID and claim details.";
+
+        return;
+    }
+
+    let claimId =
+        "CLM" + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById("claimResult").innerHTML =
+        "<b>Claim Submitted Successfully!</b><br>" +
+        "Claim ID: " + claimId + "<br>" +
+        "Status: Under Review";
+}
+
+function sendSMS() {
+
+    document.getElementById("smsResult").innerHTML =
+        "<b>SMS Alert Sent Successfully!</b><br>" +
+        "The policyholder has been notified about the upcoming premium due date.";
+}
+
+</script>
+
+</body>
+</html>

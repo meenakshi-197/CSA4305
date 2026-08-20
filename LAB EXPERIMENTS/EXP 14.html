@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Glow Beauty Parlour</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff5f8;
+            color: #333;
+        }
+
+        header {
+            background: #b83270;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 18px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            background: #e83e8c;
+            color: white;
+            padding: 60px 6%;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #b83270;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #b83270;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #8f2457;
+        }
+
+        /* SEARCH */
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .search-btn {
+            margin-top: 20px;
+        }
+
+        /* SERVICES */
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service {
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .service h3 {
+            color: #b83270;
+            margin-bottom: 10px;
+        }
+
+        .service p {
+            margin: 8px 0;
+        }
+
+        /* STYLISTS */
+
+        .stylist-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stylist {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+
+        .stylist-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .stylist h3 {
+            color: #b83270;
+        }
+
+        /* APPOINTMENT */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .full {
+            grid-column: 1 / 3;
+        }
+
+        /* TIME SLOTS */
+
+        .slots {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .slot {
+            padding: 12px;
+            background: #f5d7e5;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .slot:hover {
+            background: #e83e8c;
+            color: white;
+        }
+
+        .slot.selected {
+            background: #b83270;
+            color: white;
+        }
+
+        .slot.booked {
+            background: #999;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        /* DASHBOARD */
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-box {
+            background: #b83270;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        /* TABLE */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #b83270;
+            color: white;
+        }
+
+        /* HIDE SECTIONS */
+
+        .hidden {
+            display: none;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #b83270;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .search-grid,
+            .service-grid,
+            .stylist-grid,
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: 1;
+            }
+
+            .slots {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            table {
+                font-size: 12px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <h1>💇 Glow Beauty Parlour</h1>
+
+    <nav>
+
+        <a onclick="showSection('home')">
+            Home
+        </a>
+
+        <a onclick="showSection('search')">
+            Find Parlour
+        </a>
+
+        <a onclick="showSection('services')">
+            Services
+        </a>
+
+        <a onclick="showSection('dashboard')">
+            Dashboard
+        </a>
+
+        <a onclick="showSection('admin')">
+            Admin
+        </a>
+
+        <a onclick="showSection('login')">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- HOME -->
+
+<section id="home">
+
+    <div class="hero">
+
+        <h2>Beauty & Wellness Appointment Booking</h2>
+
+        <p>
+            Find your favourite beauty parlour and
+            book your appointment at your preferred date and time.
+        </p>
+
+        <button onclick="showSection('search')">
+            Find a Parlour
+        </button>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>About Our System</h2>
+
+            <p>
+                The online beauty parlour appointment booking system
+                allows customers to search for beauty parlours,
+                browse available services, view stylist profiles,
+                check appointment availability and book appointments
+                online.
+            </p>
+
+            <br>
+
+            <p>
+                Customers can select a service, choose a stylist,
+                select a preferred date and time, provide personal
+                details and make secure payments.
+            </p>
+
+            <br>
+
+            <p>
+                Users can also manage, reschedule or cancel their
+                appointments through their personal dashboard.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH PARLOUR -->
+
+<section id="search" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Search Beauty Parlour</h2>
+
+            <div class="search-grid">
+
+                <div>
+
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Enter city or area">
+
+                </div>
+
+
+                <div>
+
+                    <label>Service</label>
+
+                    <select id="searchService">
+
+                        <option>
+                            Hair Cut
+                        </option>
+
+                        <option>
+                            Hair Coloring
+                        </option>
+
+                        <option>
+                            Facial
+                        </option>
+
+                        <option>
+                            Manicure
+                        </option>
+
+                        <option>
+                            Pedicure
+                        </option>
+
+                        <option>
+                            Bridal Makeup
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Date</label>
+
+                    <input
+                        type="date"
+                        id="searchDate">
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="search-btn"
+                onclick="searchParlour()">
+
+                Search Parlours
+
+            </button>
+
+        </div>
+
+
+        <!-- PARLOUR RESULTS -->
+
+        <div id="parlourResults"
+             class="card hidden">
+
+            <h2>Available Beauty Parlours</h2>
+
+
+            <div class="service">
+
+                <h3>Glow Beauty Studio</h3>
+
+                <p>
+                    📍 Chennai
+                </p>
+
+                <p>
+                    ⭐ 4.8 / 5
+                </p>
+
+                <p>
+                    Hair, Facial, Makeup, Nails
+                </p>
+
+                <button onclick="showSection('services')">
+
+                    View Services
+
+                </button>
+
+            </div>
+
+            <br>
+
+
+            <div class="service">
+
+                <h3>Elegant Beauty Salon</h3>
+
+                <p>
+                    📍 Bangalore
+                </p>
+
+                <p>
+                    ⭐ 4.6 / 5
+                </p>
+
+                <p>
+                    Hair, Spa, Facial, Bridal Makeup
+                </p>
+
+                <button onclick="showSection('services')">
+
+                    View Services
+
+                </button>
+
+            </div>
+
+            <br>
+
+
+            <div class="service">
+
+                <h3>Royal Beauty Lounge</h3>
+
+                <p>
+                    📍 Hyderabad
+                </p>
+
+                <p>
+                    ⭐ 4.7 / 5
+                </p>
+
+                <p>
+                    Hair, Nails, Makeup, Skin Care
+                </p>
+
+                <button onclick="showSection('services')">
+
+                    View Services
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SERVICES -->
+
+<section id="services" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Available Services</h2>
+
+
+            <div class="service-grid">
+
+
+                <div class="service">
+
+                    <h3>Hair Cut</h3>
+
+                    <p>Professional haircut</p>
+
+                    <p><b>₹500</b></p>
+
+                    <p>Duration: 45 min</p>
+
+                    <button onclick="selectService('Hair Cut')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="service">
+
+                    <h3>Hair Coloring</h3>
+
+                    <p>Premium hair coloring</p>
+
+                    <p><b>₹1,500</b></p>
+
+                    <p>Duration: 90 min</p>
+
+                    <button onclick="selectService('Hair Coloring')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="service">
+
+                    <h3>Facial</h3>
+
+                    <p>Deep cleansing facial</p>
+
+                    <p><b>₹800</b></p>
+
+                    <p>Duration: 60 min</p>
+
+                    <button onclick="selectService('Facial')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="service">
+
+                    <h3>Manicure</h3>
+
+                    <p>Professional nail care</p>
+
+                    <p><b>₹600</b></p>
+
+                    <p>Duration: 45 min</p>
+
+                    <button onclick="selectService('Manicure')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="service">
+
+                    <h3>Pedicure</h3>
+
+                    <p>Complete foot care</p>
+
+                    <p><b>₹700</b></p>
+
+                    <p>Duration: 50 min</p>
+
+                    <button onclick="selectService('Pedicure')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+                <div class="service">
+
+                    <h3>Bridal Makeup</h3>
+
+                    <p>Complete bridal makeup</p>
+
+                    <p><b>₹5,000</b></p>
+
+                    <p>Duration: 180 min</p>
+
+                    <button onclick="selectService('Bridal Makeup')">
+
+                        Book Now
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STYLISTS -->
+
+<section id="stylists" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Our Stylists</h2>
+
+
+            <div class="stylist-grid">
+
+
+                <div class="stylist">
+
+                    <div class="stylist-icon">
+                        👩‍🦰
+                    </div>
+
+                    <h3>Anjali</h3>
+
+                    <p>Hair Specialist</p>
+
+                    <p>Experience: 8 Years</p>
+
+                    <p>⭐ 4.9</p>
+
+                    <button
+                        onclick="selectStylist('Anjali')">
+
+                        Select
+
+                    </button>
+
+                </div>
+
+
+                <div class="stylist">
+
+                    <div class="stylist-icon">
+                        👩‍🎨
+                    </div>
+
+                    <h3>Priya</h3>
+
+                    <p>Makeup Artist</p>
+
+                    <p>Experience: 6 Years</p>
+
+                    <p>⭐ 4.8</p>
+
+                    <button
+                        onclick="selectStylist('Priya')">
+
+                        Select
+
+                    </button>
+
+                </div>
+
+
+                <div class="stylist">
+
+                    <div class="stylist-icon">
+                        👩‍💼
+                    </div>
+
+                    <h3>Divya</h3>
+
+                    <p>Skin Care Specialist</p>
+
+                    <p>Experience: 7 Years</p>
+
+                    <p>⭐ 4.7</p>
+
+                    <button
+                        onclick="selectStylist('Divya')">
+
+                        Select
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- APPOINTMENT -->
+
+<section id="appointment" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Book Appointment</h2>
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>Selected Service</label>
+
+                    <input
+                        type="text"
+                        id="selectedService"
+                        readonly>
+
+                </div>
+
+
+                <div>
+
+                    <label>Select Stylist</label>
+
+                    <select id="stylist">
+
+                        <option>
+                            Anjali
+                        </option>
+
+                        <option>
+                            Priya
+                        </option>
+
+                        <option>
+                            Divya
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Appointment Date</label>
+
+                    <input
+                        type="date"
+                        id="appointmentDate">
+
+                </div>
+
+            </div>
+
+
+            <br>
+
+            <h3>Select Available Time</h3>
+
+
+            <div class="slots">
+
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    09:00 AM
+                </div>
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    10:00 AM
+                </div>
+
+                <div class="slot booked">
+                    11:00 AM
+                </div>
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    12:00 PM
+                </div>
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    02:00 PM
+                </div>
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    03:00 PM
+                </div>
+
+                <div class="slot booked">
+                    04:00 PM
+                </div>
+
+                <div class="slot"
+                     onclick="selectTime(this)">
+                    05:00 PM
+                </div>
+
+
+            </div>
+
+
+            <br>
+
+            <p>
+                Selected Time:
+                <b id="selectedTime">
+                    None
+                </b>
+            </p>
+
+            <br>
+
+            <button onclick="continueToDetails()">
+
+                Continue
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CUSTOMER DETAILS -->
+
+<section id="details" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Customer Details</h2>
+
+
+            <div class="form-grid">
+
+
+                <div>
+
+                    <label>First Name</label>
+
+                    <input
+                        type="text"
+                        id="firstName">
+
+                </div>
+
+
+                <div>
+
+                    <label>Last Name</label>
+
+                    <input
+                        type="text"
+                        id="lastName">
+
+                </div>
+
+
+                <div>
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="customerEmail">
+
+                </div>
+
+
+                <div>
+
+                    <label>Phone</label>
+
+                    <input
+                        type="tel"
+                        id="phone">
+
+                </div>
+
+
+            </div>
+
+
+            <br>
+
+            <button onclick="goToPayment()">
+
+                Continue to Payment
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section id="payment" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Secure Payment</h2>
+
+            <p>
+                Complete your payment to confirm
+                your appointment.
+            </p>
+
+            <br>
+
+
+            <label>Card Holder Name</label>
+
+            <input type="text">
+
+
+            <br><br>
+
+
+            <label>Card Number</label>
+
+            <input
+                type="text"
+                placeholder="XXXX XXXX XXXX XXXX">
+
+
+            <br><br>
+
+
+            <div class="form-grid">
+
+                <div>
+
+                    <label>Expiry Date</label>
+
+                    <input
+                        type="text"
+                        placeholder="MM/YY">
+
+                </div>
+
+
+                <div>
+
+                    <label>CVV</label>
+
+                    <input
+                        type="password"
+                        placeholder="CVV">
+
+                </div>
+
+            </div>
+
+
+            <br>
+
+            <button onclick="completeBooking()">
+
+                Pay ₹800
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>User Login</h2>
+
+
+            <label>Email</label>
+
+            <input type="email">
+
+
+            <br><br>
+
+
+            <label>Password</label>
+
+            <input type="password">
+
+
+            <br><br>
+
+
+            <button onclick="loginUser()">
+
+                Login
+
+            </button>
+
+
+            <button onclick="showSection('register')">
+
+                Register
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="hidden">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Create Account</h2>
+
+
+            <label>Full Name</label>
+
+            <input type="text">
+
+
+            <br><br>
+
+
+            <label>Email</label>
+
+            <input type="email">
+
+
+            <br><br>
+
+
+            <label>Password</label>
+
+            <input type="password">
+
+
+            <br><br>
+
+
+            <label>Confirm Password</label>
+
+            <input type="password">
+
+
+            <br><br>
+
+
+            <button onclick="registerUser()">
+
+                Register
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="hidden">
+
+    <div class="container">
+
+
+        <div class="card">
+
+            <h2>My Dashboard</h2>
+
+
+            <div class="dashboard">
+
+
+                <div class="dashboard-box">
+
+                    <h3>Upcoming</h3>
+
+                    <br>
+
+                    <h2>2</h2>
+
+                </div>
+
+
+                <div class="dashboard-box">
+
+                    <h3>Total Appointments</h3>
+
+                    <br>
+
+                    <h2>8</h2>
+
+                </div>
+
+
+                <div class="dashboard-box">
+
+                    <h3>Cancelled</h3>
+
+                    <br>
+
+                    <h2>1</h2>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- APPOINTMENT HISTORY -->
+
+        <div class="card">
+
+            <h2>Appointment History</h2>
+
+
+            <table>
+
+                <tr>
+
+                    <th>Appointment ID</th>
+
+                    <th>Service</th>
+
+                    <th>Stylist</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>AP1001</td>
+
+                    <td>Facial</td>
+
+                    <td>Divya</td>
+
+                    <td>20-08-2026</td>
+
+                    <td>10:00 AM</td>
+
+                    <td>Confirmed</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>AP1002</td>
+
+                    <td>Hair Cut</td>
+
+                    <td>Anjali</td>
+
+                    <td>25-08-2026</td>
+
+                    <td>03:00 PM</td>
+
+                    <td>Confirmed</td>
+
+                </tr>
+
+            </table>
+
+
+            <br>
+
+
+            <button onclick="reschedule()">
+
+                Reschedule
+
+            </button>
+
+
+            <button onclick="cancelAppointment()">
+
+                Cancel Appointment
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ADMIN PANEL -->
+
+<section id="admin" class="hidden">
+
+    <div class="container">
+
+
+        <div class="card">
+
+            <h2>Admin Panel</h2>
+
+            <p>
+                Admin can manage services, stylists,
+                schedules and customer accounts.
+            </p>
+
+        </div>
+
+
+        <!-- SERVICE MANAGEMENT -->
+
+        <div class="card">
+
+            <h2>Service Management</h2>
+
+
+            <table>
+
+                <tr>
+
+                    <th>Service</th>
+
+                    <th>Price</th>
+
+                    <th>Duration</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Hair Cut</td>
+
+                    <td>₹500</td>
+
+                    <td>45 Minutes</td>
+
+                    <td>
+                        <button>Edit</button>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Facial</td>
+
+                    <td>₹800</td>
+
+                    <td>60 Minutes</td>
+
+                    <td>
+                        <button>Edit</button>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Bridal Makeup</td>
+
+                    <td>₹5,000</td>
+
+                    <td>180 Minutes</td>
+
+                    <td>
+                        <button>Edit</button>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- STYLIST MANAGEMENT -->
+
+        <div class="card">
+
+            <h2>Stylist Schedule Management</h2>
+
+
+            <table>
+
+                <tr>
+
+                    <th>Stylist</th>
+
+                    <th>Specialization</th>
+
+                    <th>Working Hours</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Anjali</td>
+
+                    <td>Hair Specialist</td>
+
+                    <td>09:00 AM - 06:00 PM</td>
+
+                    <td>Available</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Priya</td>
+
+                    <td>Makeup Artist</td>
+
+                    <td>10:00 AM - 07:00 PM</td>
+
+                    <td>Available</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Divya</td>
+
+                    <td>Skin Care</td>
+
+                    <td>09:00 AM - 05:00 PM</td>
+
+                    <td>Available</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- USER MANAGEMENT -->
+
+        <div class="card">
+
+            <h2>User Account Management</h2>
+
+
+            <table>
+
+                <tr>
+
+                    <th>User ID</th>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>101</td>
+
+                    <td>Arun</td>
+
+                    <td>arun@example.com</td>
+
+                    <td>Active</td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>102</td>
+
+                    <td>Priya</td>
+
+                    <td>priya@example.com</td>
+
+                    <td>Active</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 Glow Beauty Parlour
+    </p>
+
+    <p>
+        Online Beauty Parlour Appointment Booking System
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+
+    function showSection(sectionId) {
+
+        const sections = [
+            "home",
+            "search",
+            "services",
+            "stylists",
+            "appointment",
+            "details",
+            "payment",
+            "login",
+            "register",
+            "dashboard",
+            "admin"
+        ];
+
+
+        sections.forEach(function(section) {
+
+            document
+                .getElementById(section)
+                .classList.add("hidden");
+
+        });
+
+
+        document
+            .getElementById(sectionId)
+            .classList.remove("hidden");
+
+
+        window.scrollTo(0, 0);
+
+    }
+
+
+    function searchParlour() {
+
+        const location =
+            document.getElementById("location").value;
+
+        const date =
+            document.getElementById("searchDate").value;
+
+
+        if (location === "" || date === "") {
+
+            alert(
+                "Please enter location and date."
+            );
+
+            return;
+
+        }
+
+
+        document
+            .getElementById("parlourResults")
+            .classList.remove("hidden");
+
+    }
+
+
+    function selectService(service) {
+
+        document
+            .getElementById("selectedService")
+            .value = service;
+
+
+        showSection("stylists");
+
+    }
+
+
+    function selectStylist(stylist) {
+
+        alert(
+            "Stylist " +
+            stylist +
+            " selected."
+        );
+
+
+        showSection("appointment");
+
+    }
+
+
+    function selectTime(slot) {
+
+        if (
+            slot.classList.contains("booked")
+        ) {
+
+            return;
+
+        }
+
+
+        document
+            .querySelectorAll(".slot")
+            .forEach(function(item) {
+
+                item.classList.remove("selected");
+
+            });
+
+
+        slot.classList.add("selected");
+
+
+        document
+            .getElementById("selectedTime")
+            .innerText = slot.innerText;
+
+    }
+
+
+    function continueToDetails() {
+
+        const time =
+            document
+                .getElementById("selectedTime")
+                .innerText;
+
+
+        const date =
+            document
+                .getElementById("appointmentDate")
+                .value;
+
+
+        if (
+            time === "None" ||
+            date === ""
+        ) {
+
+            alert(
+                "Please select date and time."
+            );
+
+            return;
+
+        }
+
+
+        showSection("details");
+
+    }
+
+
+    function goToPayment() {
+
+        const firstName =
+            document
+                .getElementById("firstName")
+                .value;
+
+        const email =
+            document
+                .getElementById("customerEmail")
+                .value;
+
+
+        if (
+            firstName === "" ||
+            email === ""
+        ) {
+
+            alert(
+                "Please enter customer details."
+            );
+
+            return;
+
+        }
+
+
+        showSection("payment");
+
+    }
+
+
+    function completeBooking() {
+
+        alert(
+            "Payment successful!\n\n" +
+            "Appointment confirmed!\n" +
+            "Confirmation email sent.\n" +
+            "Reminder will be sent before appointment."
+        );
+
+
+        showSection("dashboard");
+
+    }
+
+
+    function loginUser() {
+
+        alert(
+            "Login successful!"
+        );
+
+
+        showSection("dashboard");
+
+    }
+
+
+    function registerUser() {
+
+        alert(
+            "Registration successful!"
+        );
+
+
+        showSection("login");
+
+    }
+
+
+    function reschedule() {
+
+        alert(
+            "Appointment rescheduling option opened."
+        );
+
+
+        showSection("appointment");
+
+    }
+
+
+    function cancelAppointment() {
+
+        const confirmCancel =
+            confirm(
+                "Are you sure you want to cancel the appointment?"
+            );
+
+
+        if (confirmCancel) {
+
+            alert(
+                "Appointment cancelled successfully."
+            );
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
