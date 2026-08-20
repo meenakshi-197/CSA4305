@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<users>
+    <user>
+        <id>101</id>
+        <name>Arun</name>
+        <email>arun@gmail.com</email>
+    </user>
+
+    <user>
+        <id>102</id>
+        <name>Priya</name>
+        <email>priya@gmail.com</email>
+    </user>
+</users>
